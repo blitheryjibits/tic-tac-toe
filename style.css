@@ -1,0 +1,146 @@
+
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+:root {
+ --cell-size: 60px;
+ --mark-size: calc(var(--cell-size) * .9);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#title {
+    display: flex;
+    background-color: bisque;
+    justify-content: center;
+}
+
+/*
+Board and grid layout
+*/
+
+.board {
+    width: 100vw;
+    height: 90vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+    display: flex;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid black;
+    font: 3rem Dancing Script, cursive, helvetica;
+    cursor: pointer;
+}
+
+.cell:first-child, .cell:nth-child(2), .cell:nth-child(3) {
+    border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+    border-left: none;
+}
+.cell:nth-child(3n) {
+    border-right: none;
+}
+
+.cell:last-child, .cell:nth-child(8), .cell:nth-child(7) {
+    border-bottom: none;
+}
+
+/*
+Cell states containing a player token
+*/
+.cell.circle {
+    /* content: 'O'; */
+}
+
+.cell.ex {
+    /* content: 'X';  */
+}
+
+.cell.circle,
+.cell.ex {
+    cursor: not-allowed;
+}
+
+/*
+Board Hover effects
+*/
+.board.circle .cell:not(.ex):not(.circle):hover::before {
+    content: 'O';
+    color: grey;
+}
+
+.board.ex .cell:not(.ex):not(.circle):hover::before {
+    content: 'X';
+    color: grey;
+}
+
+/*
+Restart button style
+*/
+#restartButton {
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+/*
+Win game and start game messages
+*/
+
+.winning-message.hidden, .start-message.hidden, #form-container.hidden {
+    display: none !important;
+}
+.winning-message.display {
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.winning-message div {
+    margin-top: 20%;
+    color: rgba(220, 220, 220, .4);
+    font: 3rem Dancing Script, cursive, Arial, Helvetica, sans-serif;
+}
+
+
+.start-message, #form-container {
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font: white;
+}
+
+
+.start-message button {
+    margin: 10px;
+    width: 105px;
+    height: 1.3rem;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    border-radius: 2px;
+    
+}
